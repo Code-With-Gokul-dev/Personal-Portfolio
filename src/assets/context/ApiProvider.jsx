@@ -16,14 +16,6 @@ const ApiProvider = ({ children }) => {
 
   const [theme, setTheme] = useState(localStorage.getItem("theme") || "dark");
 
-  // useEffect(() => {
-  //   localStorage.setItem("theme", theme);
-    
-  //   const root = window.document.documentElement;
-  //   root.classList.remove("light", "dark");
-  //   root.classList.add(theme);
-  // }, [theme]);
-
   return (
     <themeContext.Provider value={{ theme, setTheme, isLogged, setLogged , currentUser ,setCurrentUser,userDatas ,setUserDatas }}>
       {children}

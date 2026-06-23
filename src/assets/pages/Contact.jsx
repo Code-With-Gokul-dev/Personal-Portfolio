@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
-import { SiGithub, SiLinkedin, SiInstagram, SiYoutube } from 'react-icons/si';
-import { HiOutlineArrowNarrowRight, HiOutlineMoon, HiOutlineSun } from 'react-icons/hi';
-import { SlSocialTwitter } from 'react-icons/sl';
+import React, { useState, useRef } from 'react';
+import { SiGithub, SiLinkedin, SiInstagram } from 'react-icons/si';
+import { HiOutlineArrowNarrowRight } from 'react-icons/hi';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { BiArrowToTop } from 'react-icons/bi';
 
 export const Contact = () => {
   const [revealed, setRevealed] = useState(false);
 
   const socialLinks = [
-    { icon: <SiInstagram />, href: "www.instagram.com" },
-    { icon: <SiLinkedin />, href: "https://www.linkedin.com/in/gokulakrishnan-a-g8608" },
-    { icon: <SiGithub />, href: "https://github.com/Gokulproject5/" },
+    { label: "Instagram", icon: <SiInstagram />, href: "www.instagram.com" },
+    { label: "LinkedIn", icon: <SiLinkedin />, href: "https://www.linkedin.com/in/gokulakrishnan-a-g8608" },
+    { label: "GitHub", icon: <SiGithub />, href: "https://github.com/Gokulakrishnan-777/" },
   ];
   const scrollTo = (id) => {
     if (id === 'home') {
@@ -19,22 +19,39 @@ export const Contact = () => {
     }
     const element = document.getElementById(id);
     if (element) {
-      window.scrollTo({ top: element.offsetTop - 72, behavior: 'smooth' });
+      const topOffset = element.getBoundingClientRect().top + window.scrollY - 72;
+      window.scrollTo({ top: topOffset, behavior: 'smooth' });
     }
   };
+
+  const ref = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"]
+  });
+
+  const y1 = useTransform(scrollYProgress, [0, 1], ["0%", "-100%"]);
+  const y2 = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
+
   return (
-    <footer id="contact" className="sticky top-0 z-[60] min-h-screen transition-colors duration-700 bg-slate-50 dark:bg-[#020617] text-slate-900 dark:text-white pt-24 pb-10 overflow-hidden font-sans">
+    <footer id="contact" ref={ref} className="relative z-60 min-h-screen transition-colors duration-700 bg-slate-50 dark:bg-[#020617] text-slate-900 dark:text-white pt-24 pb-10 overflow-hidden font-sans perspective-[2000px]">
 
       {/* overlay */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-20 left-[10%] w-72 h-72 bg-purple-400/10 dark:bg-purple-600/10 rounded-full blur-[100px]"></div>
-        <div className="absolute bottom-10 right-[10%] w-72 h-72 bg-blue-400/10 dark:bg-blue-600/10 rounded-full blur-[100px]"></div>
+        <motion.div style={{ y: y1 }} className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-[120px] will-change-transform"></motion.div>
+        <motion.div style={{ y: y2 }} className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-[120px] will-change-transform"></motion.div>
         {/* stars */}
         <div className="hidden dark:block absolute top-40 right-1/4 w-1 h-1 bg-white rounded-full animate-pulse"></div>
         <div className="hidden dark:block absolute bottom-40 left-1/3 w-1 h-1 bg-purple-400 rounded-full animate-ping"></div>
       </div>
 
-      <div className="container mx-auto px-6 relative z-10 text-center">
+      <motion.div 
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.8 }}
+        className="container mx-auto px-6 relative z-10 text-center"
+      >
 
         {/* Contact Section */}
         <div className="mb-24">
@@ -46,6 +63,7 @@ export const Contact = () => {
 
           <button
             onClick={() => setRevealed(!revealed)}
+            aria-label={revealed ? "Hide Email Address" : "Reveal Email Address"}
             className="group flex items-center gap-4 mx-auto text-xl md:text-2xl font-bold transition-all"
           >
             <span className="border-b-2 border-slate-200 dark:border-slate-800 group-hover:border-purple-600 transition-colors">
@@ -62,7 +80,7 @@ export const Contact = () => {
           {/* Social Icons */}
           <div className="flex justify-center gap-8 mb-10">
             {socialLinks.map((item, i) => (
-              <a key={i} href={item.href} target='_blank' className="text-xl text-slate-400 hover:text-purple-600 dark:hover:text-white transition-all hover:-translate-y-1">
+              <a key={i} href={item.href} target='_blank' aria-label={item.label} className="text-xl text-slate-400 hover:text-purple-600 dark:hover:text-white transition-all hover:-translate-y-1">
                 {item.icon}
               </a>
             ))}
@@ -89,16 +107,17 @@ export const Contact = () => {
           </div>
 
           <p className="text-[10px] font-bold tracking-[0.4em] text-slate-400 dark:text-slate-600 uppercase">
-            © 2026 Gokulakrishnan A • Made with Passion
+            © 2026 Gokulakrishnan A
           </p>
         </div>
-      </div>
+      </motion.div>
 
 
       <button
         onClick={() => scrollTo('home')}
         title="Back to top"
-        className="fixed bottom-6 right-6 w-10 h-10 flex items-center justify-center rounded-full bg-white dark:bg-slate-800 shadow-xl border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-yellow-400 z-50 hover:scale-110 active:scale-95 transition-all"
+        aria-label="Back to top"
+        className="absolute bottom-6 z-10 right-6 w-10 h-10 flex items-center justify-center rounded-full bg-white dark:bg-slate-800 shadow-xl border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-yellow-400 hover:scale-110 active:scale-95 transition-all"
       >
         <BiArrowToTop size={18} />
       </button>
