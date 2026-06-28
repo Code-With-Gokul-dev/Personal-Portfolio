@@ -132,10 +132,15 @@ const Header = () => {
                         
                         <button
                             onClick={handleTheme}
-                            className="flex h-8 w-8 items-center justify-center rounded-md text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
+                            className="relative flex h-8 w-8 items-center justify-center rounded-md text-muted-foreground hover:bg-muted hover:text-foreground transition-colors overflow-hidden"
                             aria-label="Toggle Mode"
                         >
-                            {theme === 'dark' ? <MdOutlineWbSunny size={18} /> : <BsMoonStars size={18} />}
+                            <div className={`absolute transition-all duration-500 ease-in-out ${theme === 'dark' ? 'rotate-0 scale-100 opacity-100' : '-rotate-90 scale-0 opacity-0'}`}>
+                                <MdOutlineWbSunny size={18} />
+                            </div>
+                            <div className={`absolute transition-all duration-500 ease-in-out ${theme === 'dark' ? 'rotate-90 scale-0 opacity-0' : 'rotate-0 scale-100 opacity-100'}`}>
+                                <BsMoonStars size={18} />
+                            </div>
                         </button>
                     </div>
                 </div>

@@ -4,6 +4,7 @@ import { Home } from './assets/pages/Home.jsx'
 import '@fontsource-variable/sansita-swashed';
 import ApiProvider from './assets/context/ApiProvider.jsx'
 import Text from './assets/components/Text.jsx';
+import BackToTop from './assets/components/BackToTop.jsx';
 
 // Lazy loaded components for performance optimization
 const About = lazy(() => import('./assets/pages/About.jsx').then(module => ({ default: module.About })));
@@ -25,6 +26,7 @@ function App() {
                 <Contact />
                 <Text />
             </Suspense>
+            <BackToTop />
         </ApiProvider>
     )
 }

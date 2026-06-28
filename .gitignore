@@ -26,3 +26,5 @@ dist-ssr
 
 # testing folder 
 *.__test__
+
+.gitignore
