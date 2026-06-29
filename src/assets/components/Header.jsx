@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { flushSync } from 'react-dom';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { themeContext } from '../context/themeApi';
 import { BsMoonStars } from "react-icons/bs";
@@ -86,7 +87,25 @@ const Header = () => {
 
     const handleTheme = () => {
         playHapticSound();
-        setTheme(prev => prev === 'dark' ? 'light' : 'dark');
+        const nextTheme = theme === 'dark' ? 'light' : 'dark';
+        
+        if (!document.startViewTransition) {
+            setTheme(nextTheme);
+            return;
+        }
+
+        document.startViewTransition(() => {
+            flushSync(() => {
+                setTheme(nextTheme);
+                // Synchronously update the DOM so the view transition captures it immediately
+                const root = window.document.documentElement;
+                if (nextTheme === "dark") {
+                    root.classList.add("dark");
+                } else {
+                    root.classList.remove("dark");
+                }
+            });
+        });
     };
 
     const scrollTo = (id) => {

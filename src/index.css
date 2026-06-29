@@ -42,15 +42,12 @@ body {
   background-color: var(--background);
   color: var(--foreground);
   overflow-x: hidden;
-  transition: background-color 0.7s cubic-bezier(0.4, 0, 0.2, 1), color 0.7s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 *,
 ::before,
 ::after {
-  transition-property: background-color, border-color, color, fill, stroke;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 700ms;
+  /* Removed heavy global transitions that caused interaction lag */
 }
 
 /* Structural styling matching the target site */
