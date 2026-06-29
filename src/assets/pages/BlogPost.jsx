@@ -27,22 +27,36 @@ const TOCSidebar = () => {
     useEffect(() => {
         const observer = new IntersectionObserver(
             (entries) => {
-                // Find all intersecting entries
                 entries.forEach((entry) => {
                     if (entry.isIntersecting) {
                         setActiveId(entry.target.id);
                     }
                 });
             },
-            { rootMargin: "0px 0px -80% 0px" } // trigger when heading is near the top
+            { rootMargin: "0px 0px -80% 0px" } 
         );
 
-        headings.forEach((h) => {
-            const el = document.getElementById(h.id);
-            if (el) observer.observe(el);
-        });
+        let observedCount = 0;
+        const interval = setInterval(() => {
+            headings.forEach((h) => {
+                const el = document.getElementById(h.id);
+                // Only observe elements that haven't been observed yet
+                if (el && !el.dataset.tocObserved) {
+                    observer.observe(el);
+                    el.dataset.tocObserved = 'true';
+                    observedCount++;
+                }
+            });
+            // Stop polling once all headings are found and observed
+            if (observedCount === headings.length) {
+                clearInterval(interval);
+            }
+        }, 300);
 
-        return () => observer.disconnect();
+        return () => {
+            clearInterval(interval);
+            observer.disconnect();
+        };
     }, []);
 
     return (
