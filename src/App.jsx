@@ -1,4 +1,4 @@
-import React, { Suspense, lazy } from 'react';
+import React, { Suspense, lazy, useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Header from './assets/components/Header'
 import { Home } from './assets/pages/Home.jsx'
@@ -8,6 +8,7 @@ import ApiProvider from './assets/context/ApiProvider.jsx'
 import Text from './assets/components/Text.jsx';
 import BackToTop from './assets/components/BackToTop.jsx';
 import SearchModal from './assets/components/SearchModal.jsx';
+import Loader from './assets/components/Loader.jsx';
 
 // Lazy loaded components for performance optimization
 const About = lazy(() => import('./assets/pages/About.jsx').then(module => ({ default: module.About })));
@@ -20,6 +21,7 @@ const Contact = lazy(() => import('./assets/pages/Contact.jsx').then(module => (
 const BlogList = lazy(() => import('./assets/pages/BlogList.jsx'));
 const BlogPost = lazy(() => import('./assets/pages/BlogPost.jsx'));
 const NotFound = lazy(() => import('./assets/pages/NotFound.jsx'));
+const Certificates = lazy(() => import('./assets/pages/Certificates.jsx'));
 
 const Portfolio = () => (
     <>
@@ -38,11 +40,30 @@ const Portfolio = () => (
 );
 
 function App() {
+    const [isLoading, setIsLoading] = useState(true);
+
+    // Lock body scroll while loading
+    useEffect(() => {
+        if (isLoading) {
+            document.body.style.overflow = 'hidden';
+            window.scrollTo(0, 0);
+        } else {
+            document.body.style.overflow = '';
+        }
+    }, [isLoading]);
+
     return (
         <ApiProvider>
-            <div className="w-full overflow-x-clip relative min-h-screen">
+            {isLoading && <Loader onComplete={() => setIsLoading(false)} />}
+            
+            <div className={`w-full overflow-x-clip relative min-h-screen transition-opacity duration-700 ease-in-out ${isLoading ? 'opacity-0 h-screen overflow-hidden' : 'opacity-100'}`}>
                 <Routes>
                     <Route path="/" element={<Portfolio />} />
+                    <Route path="/certificates" element={
+                        <Suspense fallback={<div className="min-h-[50vh] flex items-center justify-center"><div className="w-8 h-8 border-4 border-accent border-t-transparent rounded-full animate-spin"></div></div>}>
+                            <Certificates />
+                        </Suspense>
+                    } />
                     <Route path="/blog" element={
                         <Suspense fallback={<div className="min-h-[50vh] flex items-center justify-center"><div className="w-8 h-8 border-4 border-accent border-t-transparent rounded-full animate-spin"></div></div>}>
                             <BlogList />
