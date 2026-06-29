@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { pdfjs, Document, Page } from 'react-pdf';
 import { useLenis } from 'lenis/react';
+import { AnimatePresence, motion } from 'framer-motion';
 import 'react-pdf/dist/Page/AnnotationLayer.css';
 import 'react-pdf/dist/Page/TextLayer.css';
 
@@ -50,8 +51,6 @@ const ResumeModal = ({ isOpen, onClose }) => {
         return () => window.removeEventListener('keydown', handleEsc);
     }, [onClose]);
 
-    if (!isOpen) return null;
-
     const onDocumentLoadSuccess = ({ numPages }) => {
         setNumPages(numPages);
     };
@@ -60,8 +59,23 @@ const ResumeModal = ({ isOpen, onClose }) => {
     const handleZoomOut = () => setScale(prev => Math.max(prev - 0.25, 0.5));
 
     return (
-        <div data-lenis-prevent="true" className="fixed inset-0 z-100 flex items-center justify-center bg-black/60 backdrop-blur-sm p-2 sm:p-4 animate-in fade-in duration-200">
-            <div className="relative w-full max-w-4xl h-[90vh] sm:h-[85vh] bg-background border border-line rounded-xl shadow-2xl overflow-hidden flex flex-col animate-in zoom-in-95 duration-200">
+        <AnimatePresence>
+            {isOpen && (
+                <motion.div 
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.2 }}
+                    data-lenis-prevent="true" 
+                    className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-sm p-2 sm:p-4"
+                >
+                    <motion.div 
+                        initial={{ scale: 0.95, opacity: 0, y: 10 }}
+                        animate={{ scale: 1, opacity: 1, y: 0 }}
+                        exit={{ scale: 0.95, opacity: 0, y: 10 }}
+                        transition={{ type: "spring", duration: 0.5, bounce: 0.3 }}
+                        className="relative w-full max-w-4xl h-[90vh] sm:h-[85vh] bg-background border border-line rounded-xl shadow-2xl overflow-hidden flex flex-col"
+                    >
                 
                 {/* Header */}
                 <div className="flex items-center justify-between p-3 sm:p-4 border-b border-line shrink-0">
@@ -124,11 +138,13 @@ const ResumeModal = ({ isOpen, onClose }) => {
                         ))}
                     </Document>
                 </div>
-            </div>
             
-            {/* Click outside to close */}
-            <div className="absolute inset-0 -z-10" onClick={onClose}></div>
-        </div>
+                {/* Click outside to close */}
+                <div className="absolute inset-0 -z-10" onClick={onClose}></div>
+                </motion.div>
+            </motion.div>
+            )}
+        </AnimatePresence>
     );
 };
 

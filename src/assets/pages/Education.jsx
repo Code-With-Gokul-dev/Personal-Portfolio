@@ -1,5 +1,6 @@
 import { GraduationCap, Trophy, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import AnimatedSection from '../components/AnimatedSection';
 
 const Education = () => {
     const educationData = [
@@ -27,6 +28,7 @@ const Education = () => {
         <section id="education" className="mx-auto w-full overflow-x-clip px-2 md:max-w-3xl pt-8 pb-16">
             <h2 className="sr-only">Education</h2>
             
+            <AnimatedSection delay={0.1}>
             <div className="screen-line-top screen-line-bottom border-x border-line p-4 md:p-6">
                 <div className="flex items-center gap-4 font-mono text-sm mb-6">
                     <div className="flex size-6 shrink-0 items-center justify-center rounded-lg border border-line bg-muted text-muted-foreground">
@@ -62,8 +64,10 @@ const Education = () => {
                     ))}
                 </div>
             </div>
+            </AnimatedSection>
 
             {/* Hall of Fame / Certifications */}
+            <AnimatedSection delay={0.2}>
             <div className="screen-line-top screen-line-bottom border-x border-line p-4 md:p-6 mt-12 hover:bg-black/5 dark:hover:bg-black/40 hover:backdrop-blur-md transition-all duration-300">
                 <div className="flex items-center justify-between mb-2">
                     <div className="flex items-center gap-4 font-mono text-sm">
@@ -83,6 +87,7 @@ const Education = () => {
                     Explore my professional certifications, internships, and achievements.
                 </p>
             </div>
+            </AnimatedSection>
         </section>
     );
 };

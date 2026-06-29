@@ -1,5 +1,6 @@
 import React, { Suspense, lazy, useState, useEffect } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
+import { AnimatePresence, motion } from 'framer-motion';
 import Header from './assets/components/Header'
 import { Home } from './assets/pages/Home.jsx'
 import '@fontsource-variable/sansita-swashed';
@@ -23,6 +24,19 @@ const BlogPost = lazy(() => import('./assets/pages/BlogPost.jsx'));
 const NotFound = lazy(() => import('./assets/pages/NotFound.jsx'));
 const Certificates = lazy(() => import('./assets/pages/Certificates.jsx'));
 
+// Page Transition Wrapper
+const PageTransition = ({ children }) => (
+    <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.25 }}
+        className="w-full"
+    >
+        {children}
+    </motion.div>
+);
+
 const Portfolio = () => (
     <>
         <Header />
@@ -41,6 +55,7 @@ const Portfolio = () => (
 
 function App() {
     const [isLoading, setIsLoading] = useState(true);
+    const location = useLocation();
 
     // Lock body scroll while loading
     useEffect(() => {
@@ -57,29 +72,39 @@ function App() {
             {isLoading && <Loader onComplete={() => setIsLoading(false)} />}
             
             <div className={`w-full overflow-x-clip relative min-h-screen transition-opacity duration-700 ease-in-out ${isLoading ? 'opacity-0 h-screen overflow-hidden' : 'opacity-100'}`}>
-                <Routes>
-                    <Route path="/" element={<Portfolio />} />
-                    <Route path="/certificates" element={
-                        <Suspense fallback={<div className="min-h-[50vh] flex items-center justify-center"><div className="w-8 h-8 border-4 border-accent border-t-transparent rounded-full animate-spin"></div></div>}>
-                            <Certificates />
-                        </Suspense>
-                    } />
-                    <Route path="/blog" element={
-                        <Suspense fallback={<div className="min-h-[50vh] flex items-center justify-center"><div className="w-8 h-8 border-4 border-accent border-t-transparent rounded-full animate-spin"></div></div>}>
-                            <BlogList />
-                        </Suspense>
-                    } />
-                    <Route path="/blog/:slug" element={
-                        <Suspense fallback={<div className="min-h-[50vh] flex items-center justify-center"><div className="w-8 h-8 border-4 border-accent border-t-transparent rounded-full animate-spin"></div></div>}>
-                            <BlogPost />
-                        </Suspense>
-                    } />
-                    <Route path="*" element={
-                        <Suspense fallback={<div className="min-h-[50vh] flex items-center justify-center"><div className="w-8 h-8 border-4 border-accent border-t-transparent rounded-full animate-spin"></div></div>}>
-                            <NotFound />
-                        </Suspense>
-                    } />
-                </Routes>
+                <AnimatePresence mode="wait" onExitComplete={() => window.scrollTo(0, 0)}>
+                    <Routes location={location} key={location.pathname}>
+                        <Route path="/" element={<PageTransition><Portfolio /></PageTransition>} />
+                        <Route path="/certificates" element={
+                            <PageTransition>
+                                <Suspense fallback={<div className="min-h-[50vh] flex items-center justify-center"><div className="w-8 h-8 border-4 border-accent border-t-transparent rounded-full animate-spin"></div></div>}>
+                                    <Certificates />
+                                </Suspense>
+                            </PageTransition>
+                        } />
+                        <Route path="/blog" element={
+                            <PageTransition>
+                                <Suspense fallback={<div className="min-h-[50vh] flex items-center justify-center"><div className="w-8 h-8 border-4 border-accent border-t-transparent rounded-full animate-spin"></div></div>}>
+                                    <BlogList />
+                                </Suspense>
+                            </PageTransition>
+                        } />
+                        <Route path="/blog/:slug" element={
+                            <PageTransition>
+                                <Suspense fallback={<div className="min-h-[50vh] flex items-center justify-center"><div className="w-8 h-8 border-4 border-accent border-t-transparent rounded-full animate-spin"></div></div>}>
+                                    <BlogPost />
+                                </Suspense>
+                            </PageTransition>
+                        } />
+                        <Route path="*" element={
+                            <PageTransition>
+                                <Suspense fallback={<div className="min-h-[50vh] flex items-center justify-center"><div className="w-8 h-8 border-4 border-accent border-t-transparent rounded-full animate-spin"></div></div>}>
+                                    <NotFound />
+                                </Suspense>
+                            </PageTransition>
+                        } />
+                    </Routes>
+                </AnimatePresence>
                 <BackToTop />
                 <SearchModal />
             </div>

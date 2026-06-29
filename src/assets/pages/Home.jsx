@@ -4,6 +4,7 @@ import { GrGithub } from 'react-icons/gr';
 import { SiLinkedin, SiNotion, SiX } from 'react-icons/si';
 import MagneticDots from '../components/MagneticDots';
 import ResumeModal from '../components/ResumeModal';
+import AnimatedSection from '../components/AnimatedSection';
 
 export const Home = () => {
     const [isResumeOpen, setIsResumeOpen] = useState(false);
@@ -36,6 +37,7 @@ export const Home = () => {
             </div>
             
             {/* Profile Section */}
+            <AnimatedSection delay={0.1}>
             <div className="screen-line-bottom flex flex-col  sm:flex-row border-x border-line">
                 <div className="shrink-0 border-b sm:border-b-0 sm:border-r border-line p-4 md:p-3 flex justify-center sm:justify-start">
                     <div className="relative isolate overflow-visible rounded-full p-[2px] bg-linear-to-b from-accent to-transparent shadow-black">
@@ -80,11 +82,13 @@ export const Home = () => {
                     </div>
                 </div>
             </div>
+            </AnimatedSection>
             
             {/* Strip Pattern Divider */}
             <div className="relative flex h-8 w-full border-x border-line before:absolute before:left-[-100vw] before:-z-1 before:h-8 before:w-[200vw] before:bg-repeating-lines"></div>
 
             {/* Info Panel */}
+            <AnimatedSection delay={0.2}>
             <section className="screen-line-top screen-line-bottom border-x border-line p-4 space-y-3">
                 <div className="grid gap-x-4 gap-y-3 sm:grid-cols-2">
                     <div className="flex items-center gap-4 font-mono text-sm">
@@ -105,8 +109,10 @@ export const Home = () => {
                     </div>
                 </div>
             </section>
+            </AnimatedSection>
             
             {/* Social Links Panel */}
+            <AnimatedSection delay={0.3}>
             <section className="screen-line-top screen-line-bottom border-x border-line">
                 <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3">
                     <a href="https://github.com/Gokulakrishnan-777" target="_blank" rel="noopener noreferrer" className="flex cursor-pointer items-center gap-4 p-4 pr-2 transition-all duration-300 hover:bg-black/5 dark:hover:bg-black/40 hover:backdrop-blur-md border-r border-b border-line md:border-b-0">
@@ -123,6 +129,7 @@ export const Home = () => {
                     </a>
                 </div>
             </section>
+            </AnimatedSection>
         </main>
     );
 };
