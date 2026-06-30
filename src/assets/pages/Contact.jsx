@@ -50,7 +50,8 @@ export const Contact = () => {
 
                     <div className="border-t border-line pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
                         <p className="text-xs font-mono text-muted-foreground uppercase tracking-wider">
-                            © {new Date().getFullYear()} Gokulakrishnan A
+                            © {new Date().getFullYear()} <a href="https://gokulakrishnana.vercel.com" 
+                           className='hover:underline hover:underline-offset-4 unde transition-all duration-300 ease-in-out' >Gokulakrishnan A</a>
                         </p>
                         
                         <div className="flex items-center gap-6">

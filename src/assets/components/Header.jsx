@@ -9,11 +9,19 @@ import Tooltip from './Tooltip';
 
 const SECTION_IDS = ['home', 'about', 'education', 'skills', 'project', 'contact'];
 
+let audioCtx = null;
+
 const playHapticSound = () => {
     try {
         const AudioContext = window.AudioContext || window.webkitAudioContext;
         if (!AudioContext) return;
-        const ctx = new AudioContext();
+        if (!audioCtx) {
+            audioCtx = new AudioContext();
+        }
+        if (audioCtx.state === 'suspended') {
+            audioCtx.resume();
+        }
+        const ctx = audioCtx;
         const osc = ctx.createOscillator();
         const gainNode = ctx.createGain();
         osc.connect(gainNode);

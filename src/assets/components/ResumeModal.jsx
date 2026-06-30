@@ -30,14 +30,14 @@ const ResumeModal = ({ isOpen, onClose }) => {
     // Prevent scrolling on body when modal is open
     useEffect(() => {
         if (isOpen) {
-            document.body.style.overflow = 'hidden';
+            document.body.classList.add('modal-open') ;
             document.documentElement.style.overflow = 'hidden';
         } else {
-            document.body.style.overflow = '';
+            document.body.classList.remove('modal-open');
             document.documentElement.style.overflow = '';
         }
         return () => {
-            document.body.style.overflow = '';
+             document.body.classList.remove('modal-open');
             document.documentElement.style.overflow = '';
         };
     }, [isOpen]);
@@ -67,7 +67,7 @@ const ResumeModal = ({ isOpen, onClose }) => {
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.2 }}
                     data-lenis-prevent="true" 
-                    className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-sm p-2 sm:p-4"
+                    className="fixed inset-0 z-100 flex items-center justify-center bg-black/60 backdrop-blur-sm p-2 sm:p-4"
                 >
                     <motion.div 
                         initial={{ scale: 0.95, opacity: 0, y: 10 }}
@@ -115,7 +115,7 @@ const ResumeModal = ({ isOpen, onClose }) => {
                 {/* PDF Viewer */}
                 <div className="flex-1 w-full bg-muted/20 overflow-y-auto overflow-x-hidden p-2 sm:p-8 flex justify-center custom-scrollbar">
                     <Document
-                        file="/Gokulakrishnan__A_Full stack developer.pdf"
+                        file="/gokulakrishnan_software_developer.pdf"
                         onLoadSuccess={onDocumentLoadSuccess}
                         className="flex flex-col items-center gap-4"
                         loading={

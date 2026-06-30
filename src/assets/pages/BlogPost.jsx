@@ -12,7 +12,7 @@ const blogContents = {
     'skillswap': SkillSwapContent,
 };
 
-const TOCSidebar = () => {
+const TOCSidebar = ({ title }) => {
     const [isHovered, setIsHovered] = useState(false);
     const [activeId, setActiveId] = useState("");
     
@@ -86,6 +86,12 @@ const TOCSidebar = () => {
                     isHovered ? 'opacity-100 translate-x-0 blur-none' : 'opacity-0 translate-x-full blur-sm pointer-events-none'
                 }`}
             >
+                <h4 
+                    className="text-base font-semibold text-foreground/80 mb-4 pb-2 border-b border-line cursor-pointer hover:text-black dark:hover:text-white transition-colors"
+                    onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                >
+                    {title || "Table of Contents"}
+                </h4>
                 <nav className="flex flex-col gap-3">
                     {headings.map((h, i) => (
                         <a 
@@ -296,7 +302,7 @@ const BlogPost = () => {
 
                 {/* Right Column: Sticky Table of Contents */}
                 <aside className="hidden lg:block pl-6 pt-12 pr-4 relative z-50">
-                    {slug === 'skillswap' && <TOCSidebar />}
+                    {slug === 'skillswap' && <TOCSidebar title="SkillSwap: Revolutionizing Skill Exchange" />}
                 </aside>
             </div>
             
