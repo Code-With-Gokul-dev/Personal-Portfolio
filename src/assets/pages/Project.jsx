@@ -51,7 +51,7 @@ const ProjectCard = ({ project, isExpanded, onToggle }) => {
 
             {/* Expandable Body */}
             <div 
-                className="overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)]"
+                className="overflow-hidden transition-all duration-500 ease-in-out"
                 style={{ 
                     height: isExpanded ? `${contentRef.current?.scrollHeight}px` : '0px',
                     opacity: isExpanded ? 1 : 0
@@ -106,7 +106,7 @@ const Project = () => {
             ],
             tech: ["Next.js", "Node", "MongoDB", "Socket.io", "WebRTC", "Tailwind", "Redux"],
             live: "https://skillswap-five-beta.vercel.app/",
-            github: "https://github.com/gokulakrishnan-777/law-based-ai-bot-application"
+            github: "https://github.com/Code-With-Gokul-dev/law-based-ai-bot-application"
         },
         {
             title: "Nyayalite",
@@ -120,7 +120,7 @@ const Project = () => {
             ],
             tech: ["React", "Express", "Node", "AI/NLP"],
             live: "https://nyayalite-com.onrender.com/",
-            github: "https://github.com/gokulakrishnan-777/law-based-ai-bot-application"
+            github: "https://github.com/Code-With-Gokul-dev/law-based-ai-bot-application"
         },
         {
             title: "Portfolio Website",
@@ -134,7 +134,7 @@ const Project = () => {
             ],
             tech: ["React", "Tailwind CSS", "Vite", "Framer Motion"],
             live: "https://personal-portfolio-lyart-eight-94.vercel.app/",
-            github: "https://github.com/gokulakrishnan-777/Personal-Portfolio"
+            github: "https://github.com/Code-With-Gokul-dev/Personal-Portfolio"
         }
     ];
 

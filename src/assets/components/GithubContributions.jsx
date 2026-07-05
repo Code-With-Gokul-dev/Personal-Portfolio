@@ -53,7 +53,7 @@ const GithubContributions = () => {
                 
                 <div className="no-scrollbar-wrapper w-full overflow-x-auto scrollbar-none flex justify-center border border-line rounded-xl p-4 bg-muted/20">
                     <GitHubCalendar 
-                        username="gokulakrishnan-777" 
+                        username="Code-With-Gokul-dev" 
                         colorScheme={theme === 'dark' ? 'dark' : 'light'}
                         blockSize={12}
                         blockMargin={4}
