@@ -124,7 +124,7 @@ export const Home = () => {
             <AnimatedSection delay={0.3}>
                 <section className="screen-line-top screen-line-bottom border-x border-line">
                     <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3">
-                        <a href="https://github.com/Gokulakrishnan-777" target="_blank" rel="noopener noreferrer" className="flex cursor-pointer items-center gap-4 p-4 pr-2 transition-all duration-300 hover:bg-black/5 dark:hover:bg-black/40 hover:backdrop-blur-md border-r border-b border-line md:border-b-0" aria-label="View Gokulakrishnan's Full Stack Projects on GitHub">
+                        <a href="https://github.com/Code-With-Gokul-dev" target="_blank" rel="noopener noreferrer" className="flex cursor-pointer items-center gap-4 p-4 pr-2 transition-all duration-300 hover:bg-black/5 dark:hover:bg-black/40 hover:backdrop-blur-md border-r border-b border-line md:border-b-0" aria-label="View Gokulakrishnan's Full Stack Projects on GitHub">
                             <div className="flex size-8 shrink-0 items-center justify-center rounded-lg border border-line bg-background text-foreground"><GrGithub size={16} /></div>
                             <h3 className="flex-1 font-medium text-sm">View on GitHub</h3>
                         </a>

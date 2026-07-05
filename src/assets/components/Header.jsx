@@ -225,7 +225,7 @@ const Header = () => {
 
                         <Tooltip text="GitHub Repository" position="bottom">
                             <a
-                                href="https://github.com/gokulakrishnan-777"
+                                href="https://github.com/Code-With-Gokul-dev"
                                 target="_blank"
                                 rel="noreferrer"
                                 className="flex h-8 w-8 items-center justify-center rounded-md text-muted-foreground hover:bg-muted hover:text-foreground transition-colors max-sm:hidden"
@@ -286,7 +286,7 @@ const Header = () => {
                                 Blog
                             </Link>
                             <a
-                                href="https://github.com/gokulakrishnan-777"
+                                href="https://github.com/Code-With-Gokul-dev"
                                 target="_blank"
                                 rel="noreferrer"
                                 className="flex flex-1 items-center justify-center gap-2 rounded-lg bg-background border border-line py-2 text-sm font-medium hover:bg-accent-muted transition-colors"
