@@ -42,9 +42,9 @@ export const Home = () => {
                     <div className="shrink-0 border-b sm:border-b-0 sm:border-r border-line p-4 md:p-3 flex justify-center sm:justify-start">
                         <div className="relative isolate overflow-visible rounded-full p-0.5 bg-linear-to-b from-accent to-transparent shadow-black">
                             <img
-                                className="size-32 rounded-full object-cover ring-1 ring-border ring-offset-2 ring-offset-background select-none sm:size-40"
+                                className="size-32 rounded-full  ring-1 ring-border ring-offset-2 ring-offset-background object-fill object-center select-none sm:size-40"
                                 alt="Gokulakrishnan Profile"
-                                src="/profile.webp"
+                                src="/Gokulakrishnan.png"
                                 loading="lazy"
                                 width="160"
                                 height="160"
